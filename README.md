@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a front end web application for carrying out online examination for collage Student
 
 ## Available Scripts
 
