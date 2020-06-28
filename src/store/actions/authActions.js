@@ -92,12 +92,12 @@ const setLogoutTimer = (expirationTime) => {
   };
 };
 
-const saveDataToStorage = (token, userId, expirationDate) => {
+const saveDataToStorage = (token, user, expirationDate) => {
   localStorage.setItem(
     'userData',
     JSON.stringify({
       token: token,
-      userId: userId,
+      user: user,
       expiryDate: expirationDate.toISOString(),
     })
   );

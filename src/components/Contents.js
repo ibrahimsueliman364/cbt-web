@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Segment, Header, Icon, Button } from 'semantic-ui-react';
+import { Grid, Segment, Header, Icon } from 'semantic-ui-react';
 
 const Contents = () => {
   return (
@@ -15,11 +15,8 @@ const Contents = () => {
               </div>
               <Header icon size='tiny'>
                 <Icon name='tasks' color='grey' />
-                Practice Quiz
+                Log In or Sign Up to Get Started Practicing
               </Header>
-              <Button onClick={() => {}} primary>
-                Get Started
-              </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

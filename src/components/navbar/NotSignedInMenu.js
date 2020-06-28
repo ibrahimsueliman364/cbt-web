@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Menu, Button, Icon } from 'semantic-ui-react';
 import { openModal } from '../../store/actions/modalActions';
 import { useDispatch } from 'react-redux';
+
 const NotSignedInMenu = () => {
   const dispatch = useDispatch();
   return (

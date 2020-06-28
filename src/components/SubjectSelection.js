@@ -3,7 +3,7 @@ import React from 'react';
 const SubjectSelection = () => {
   return (
     <div>
-      <h1>selectionPage</h1>
+      <h1>Subject selection page</h1>
     </div>
   );
 };
