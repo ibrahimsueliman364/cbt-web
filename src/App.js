@@ -9,7 +9,7 @@ import modalReducer from './store/reducers/modalReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  modals: modalReducer,
+  modals: modalReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
