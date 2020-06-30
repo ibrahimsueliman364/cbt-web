@@ -23,18 +23,15 @@ function MainRouter() {
       }
       const transformedData = JSON.parse(userData);
 
-      const { mytoken, user, expiryDate } = transformedData;
+      const { token, user, expiryDate } = transformedData;
       const expirationDate = new Date(expiryDate);
 
-      if (expirationDate <= new Date() || !mytoken || !user) {
+      if (expirationDate <= new Date() || !token || !user) {
         return;
       }
-
-      // const expirationTime = expirationDate.getTime() - new Date().getTime();
-
       dispatch({
         type: LOGIN,
-        token: mytoken,
+        token: token,
         user: user,
       });
     };

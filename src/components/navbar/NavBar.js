@@ -15,6 +15,7 @@ const Navbar = () => {
     const handleSignIn = () => {
       history.push('/subjects');
     };
+
     token && handleSignIn();
   }, [token, history]);
 
