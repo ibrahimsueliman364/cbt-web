@@ -1,114 +1,65 @@
-import React, { useReducer } from 'react';
-import {
-  Grid,
-  Segment,
-  Divider,
-  List,
-  Checkbox,
-  Button,
-  Image,
-  Input,
-  Form,
-} from 'semantic-ui-react';
+import React, { useReducer, useState } from 'react';
+import { Grid, Segment, Menu, Header, Select } from 'semantic-ui-react';
 import image from '../../src/user.jpg';
 import { useSelector } from 'react-redux';
 
-const data = [
-  {
-    id: 1,
-    subjectName: 'English',
-  },
-  {
-    id: 2,
-    subjectName: 'Mathematics',
-  },
-  {
-    id: 3,
-    subjectName: 'Biology',
-  },
-  {
-    id: 4,
-    subjectName: 'Physics',
-  },
-  {
-    id: 5,
-    subjectName: 'Chemistry',
-  },
+const data = ['English', 'Mathematics', 'Biology', 'Physics', 'Chemistry'];
+const countryOptions = [
+  { key: 'af', value: 'af', text: 'Afghanistan' },
+  { key: 'ax', value: 'ax', text: 'Aland Islands' },
+  { key: 'al', value: 'al', text: 'Albania' },
+  { key: 'dz', value: 'dz', text: 'Algeria' },
+  { key: 'as', value: 'as', text: 'American Samoa' },
+  { key: 'ad', value: 'ad', text: 'Andorra' },
+  { key: 'ao', value: 'ao', text: 'Angola' },
+  { key: 'ai', value: 'ai', text: 'Anguilla' },
+  { key: 'ag', value: 'ag', text: 'Antigua' },
+  { key: 'ar', value: 'ar', text: 'Argentina' },
+  { key: 'am', value: 'am', text: 'Armenia' },
+  { key: 'aw', value: 'aw', text: 'Aruba' },
+  { key: 'au', value: 'au', text: 'Australia' },
+  { key: 'at', value: 'at', text: 'Austria' },
+  { key: 'az', value: 'az', text: 'Azerbaijan' },
+  { key: 'bs', value: 'bs', text: 'Bahamas' },
+  { key: 'bh', value: 'bh', text: 'Bahrain' },
+  { key: 'bd', value: 'bd', text: 'Bangladesh' },
+  { key: 'bb', value: 'bb', text: 'Barbados' },
+  { key: 'by', value: 'by', text: 'Belarus' },
+  { key: 'be', value: 'be', text: 'Belgium' },
+  { key: 'bz', value: 'bz', text: 'Belize' },
+  { key: 'bj', value: 'bj', text: 'Benin' },
 ];
-
 const SubjectSelection = () => {
-  const user = useSelector((user) => user.auth.loginData.user);
+  const [activeItem, setActiveItem] = useState('English');
+  const handleItemClick = (e, { name }) => setActiveItem(name);
   return (
     <Segment>
-      <Grid>
-        <Grid.Row>
-          <Grid.Column>
-            <Segment.Group>
-              <Segment textAlign='center' inverted color='green'>
-                <h3>Practice for UTME</h3>
-              </Segment>
-              <Segment>
-                <Divider horizontal>Select one or more Subjects</Divider>
-                <List relaxed horizontal>
-                  {data.map((item) => (
-                    <List.Item key={item.id}>
-                      <Checkbox label={item.subjectName}></Checkbox>
-                    </List.Item>
-                  ))}
-                </List>
-              </Segment>
-            </Segment.Group>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <Segment.Group>
+        <Segment textAlign='center' inverted color='green'>
+          <h3>Practice for UTME</h3>
+        </Segment>
+      </Segment.Group>
 
-      <Grid columns={3}>
-        <Grid.Row>
-          <Grid.Column>
-            <Segment></Segment>
-          </Grid.Column>
+      <div>
+        <Menu attached='top' tabular>
+          {data.map((item, index) => (
+            <Menu.Item
+              key={index}
+              name={item}
+              active={activeItem === item}
+              onClick={handleItemClick}
+            />
+          ))}
+        </Menu>
 
-          <Grid.Column>
-            <Segment>
-              <div>
-                <Image
-                  style={{ padding: 5 }}
-                  src={image}
-                  alt='img'
-                  circular
-                  size='small'
-                  centered
-                />
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Form>
-                  <Form.Group>
-                    <Form.Field
-                      control='input'
-                      label='Username (E.g Ahmad)'
-                    ></Form.Field>
-                  </Form.Group>
-                </Form>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button color='red'>Start Exam</Button>
-              </div>
-            </Segment>
-          </Grid.Column>
-
-          <Grid.Column>
-            <Segment textAlign='center'>
-              <div>
-                <Divider horizontal>Instructions</Divider>
-              </div>
-              <div>
-                <Button color='teal'>Click to view Instructions</Button>
-              </div>
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        <Segment attached='bottom'>
+          <Header as='h4'>Filter By</Header>
+          <Header as='h4'>Year:</Header>
+          <Select placeholder='Select your country' options={countryOptions} />
+          <Header as='h4'>Topic Name:</Header>
+          <Select placeholder='Select your country' options={countryOptions} />
+        </Segment>
+      </div>
     </Segment>
   );
 };

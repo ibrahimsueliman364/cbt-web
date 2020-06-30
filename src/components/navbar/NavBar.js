@@ -28,13 +28,15 @@ const Navbar = () => {
         to='/'
         onClick={() => setActiveItem('home')}
       />
-      <Menu.Item
-        name='Admin'
-        active={activeItem === 'Admin'}
-        as={Link}
-        to='/admin'
-        onClick={() => setActiveItem('Admin')}
-      />
+      {token && (
+        <Menu.Item
+          name='Subjects'
+          active={activeItem === 'Subjects'}
+          as={Link}
+          to='/Subjects'
+          onClick={() => setActiveItem('Subjects')}
+        />
+      )}
 
       {token ? <SignedInMenu /> : <NotSignedInMenu />}
     </Menu>
