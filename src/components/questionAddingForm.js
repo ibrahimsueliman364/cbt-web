@@ -1,8 +1,8 @@
 import React, { useCallback, useReducer } from 'react';
-import Input from '../Input';
+import Input from './Input';
 import { useDispatch } from 'react-redux';
-import { signUp } from '../../store/actions/authActions';
 import { Segment } from 'semantic-ui-react';
+import { addQuestion } from '../store/actions/questionActions';
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
 const formReducer = (state, action) => {
@@ -28,21 +28,23 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const SignUp = () => {
+const QuestionForm = (props) => {
   const dispatch = useDispatch();
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
-      name: '',
-      email: '',
-      registrationNumber: '',
-      password: '',
+      subjectName: '',
+      question: '',
+      correctAnswer: '',
+      year: 0,
+      topicName: '',
     },
     inputValidities: {
-      name: false,
-      email: false,
-      registrationNumber: false,
-      password: false,
+      subjectName: false,
+      question: false,
+      correctAnswer: false,
+      year: false,
+      topicName: false,
     },
     formIsValid: false,
   });
@@ -58,15 +60,24 @@ const SignUp = () => {
     [dispatchFormState]
   );
 
+  const choices = props.choices;
+
   const handleSubmit = async (event) => {
     if (!formState.formIsValid) {
       alert('No input!');
+      event.preventDefault();
+      return;
+    }
+    if (choices == null) {
+      alert('Select Choices before submitting');
+      event.preventDefault();
       return;
     }
     event.preventDefault();
+    const submitData = { ...formState.inputValues, choices: choices };
 
     try {
-      await dispatch(signUp(formState.inputValues));
+      await dispatch(addQuestion(submitData));
     } catch (error) {
       console.log(error);
     }
@@ -76,59 +87,70 @@ const SignUp = () => {
     <div>
       <div>
         <Segment>
-          <form className='ui form'>
+          <form className='ui form' autocomplete='off'>
             <Input
-              id='name'
+              id='subjectName'
               type='text'
-              label='Full Name'
+              label='Subject Name'
               required
-              errortext='Please enter a valid name'
+              errortext='Subject Name is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
             />
             <br />
             <br />
             <Input
-              id='email'
+              id='topicName'
               type='text'
-              label='E-Mail'
+              label='Topic Name'
               required
-              email='true'
-              errortext='Please enter a valid email address.'
+              errortext='Topic Name is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
             />
             <br />
             <br />
             <Input
-              id='registrationNumber'
+              id='question'
               type='text'
-              label='Reg Number'
+              label='Question'
               required
-              errortext='Please enter a valid registration Number'
+              errortext='Question Name is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
             />
             <br />
             <br />
             <Input
-              id='password'
-              type='password'
-              label='Password'
+              id='correctAnswer'
+              type='text'
+              label='The Correct Answer'
               required
-              minLength={7}
-              errortext='Please enter a valid password.'
+              errortext='corrent answer is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
             />
             <br />
             <br />
-            <input
-              type='submit'
-              value='Submit'
-              className='ui button'
-              onClick={handleSubmit}
+            <Input
+              id='year'
+              type='number'
+              label='Year'
+              required
+              errortext='year is Required'
+              onInputChange={inputChangeHandler}
+              initialvalue=''
             />
+            <br />
+            <br />
+            {choices && (
+              <input
+                type='submit'
+                value='Submit'
+                className='ui button'
+                onClick={handleSubmit}
+              />
+            )}
           </form>
         </Segment>
       </div>
@@ -136,4 +158,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default QuestionForm;

@@ -14,6 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleSignIn = () => {
       history.push('/subjects');
+      setActiveItem('Subjects');
     };
 
     token && handleSignIn();
@@ -37,6 +38,13 @@ const Navbar = () => {
           onClick={() => setActiveItem('Subjects')}
         />
       )}
+      <Menu.Item
+        name='Admin'
+        active={activeItem === 'Admin'}
+        as={Link}
+        to='/admin'
+        onClick={() => setActiveItem('Admin')}
+      />
 
       {token ? <SignedInMenu /> : <NotSignedInMenu />}
     </Menu>

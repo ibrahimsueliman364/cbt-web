@@ -6,10 +6,12 @@ import ReduxThunk from 'redux-thunk';
 import MainRouter from './components/MainRouter';
 import authReducer from './store/reducers/authReducers';
 import modalReducer from './store/reducers/modalReducer';
+import questionReducers from './store/reducers/questionReducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  modals: modalReducer
+  modals: modalReducer,
+  questionsData: questionReducers,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

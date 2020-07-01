@@ -1,37 +1,40 @@
-import React, { useReducer, useState } from 'react';
-import { Grid, Segment, Menu, Header, Select } from 'semantic-ui-react';
-import image from '../../src/user.jpg';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { Segment, Menu, Header, Form } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getQusetionData } from '../store/actions/questionActions';
 
 const data = ['English', 'Mathematics', 'Biology', 'Physics', 'Chemistry'];
-const countryOptions = [
-  { key: 'af', value: 'af', text: 'Afghanistan' },
-  { key: 'ax', value: 'ax', text: 'Aland Islands' },
-  { key: 'al', value: 'al', text: 'Albania' },
-  { key: 'dz', value: 'dz', text: 'Algeria' },
-  { key: 'as', value: 'as', text: 'American Samoa' },
-  { key: 'ad', value: 'ad', text: 'Andorra' },
-  { key: 'ao', value: 'ao', text: 'Angola' },
-  { key: 'ai', value: 'ai', text: 'Anguilla' },
-  { key: 'ag', value: 'ag', text: 'Antigua' },
-  { key: 'ar', value: 'ar', text: 'Argentina' },
-  { key: 'am', value: 'am', text: 'Armenia' },
-  { key: 'aw', value: 'aw', text: 'Aruba' },
-  { key: 'au', value: 'au', text: 'Australia' },
-  { key: 'at', value: 'at', text: 'Austria' },
-  { key: 'az', value: 'az', text: 'Azerbaijan' },
-  { key: 'bs', value: 'bs', text: 'Bahamas' },
-  { key: 'bh', value: 'bh', text: 'Bahrain' },
-  { key: 'bd', value: 'bd', text: 'Bangladesh' },
-  { key: 'bb', value: 'bb', text: 'Barbados' },
-  { key: 'by', value: 'by', text: 'Belarus' },
-  { key: 'be', value: 'be', text: 'Belgium' },
-  { key: 'bz', value: 'bz', text: 'Belize' },
-  { key: 'bj', value: 'bj', text: 'Benin' },
-];
+
 const SubjectSelection = () => {
   const [activeItem, setActiveItem] = useState('English');
+  const questionData = useSelector((state) => state.questionsData);
+
+  const yearOptions = questionData.years.map((item, index) => {
+    return {
+      key: index,
+      value: item,
+      text: item,
+    };
+  });
+  const topicOptions = questionData.topicNames.map((item, index) => {
+    return {
+      key: index,
+      value: item,
+      text: item,
+    };
+  });
+
   const handleItemClick = (e, { name }) => setActiveItem(name);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getQusetionData(activeItem));
+  }, [dispatch, activeItem]);
+
+  // const formSubmit = (e) => {
+  //   console.log(e);
+  // };
+
   return (
     <Segment>
       <Segment.Group>
@@ -54,10 +57,24 @@ const SubjectSelection = () => {
 
         <Segment attached='bottom'>
           <Header as='h4'>Filter By</Header>
-          <Header as='h4'>Year:</Header>
-          <Select placeholder='Select your country' options={countryOptions} />
-          <Header as='h4'>Topic Name:</Header>
-          <Select placeholder='Select your country' options={countryOptions} />
+          <Form
+            onSubmit={(e) => {
+              console.log(e);
+            }}
+          >
+            <Form.Select
+              label='Year'
+              placeholder='Choose a Year'
+              options={yearOptions}
+            />
+
+            <Form.Select
+              label='Topic Name'
+              placeholder='Choose a Topic'
+              options={topicOptions}
+            />
+            <Form.Button>Proceed</Form.Button>
+          </Form>
         </Segment>
       </div>
     </Segment>

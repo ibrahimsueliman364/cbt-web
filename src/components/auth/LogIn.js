@@ -72,7 +72,7 @@ const LogIn = () => {
     <div>
       <div>
         <Segment>
-          <form class='ui form'>
+          <form className='ui form'>
             <Input
               id='registrationNumber'
               type='text'
@@ -80,7 +80,7 @@ const LogIn = () => {
               required
               errortext='Please enter a valid registration Number'
               onInputChange={inputChangeHandler}
-              initialValue=''
+              initialvalue=''
             />
             <br />
             <br />
@@ -92,7 +92,7 @@ const LogIn = () => {
               minLength={7}
               errortext='Please enter a valid password.'
               onInputChange={inputChangeHandler}
-              initialValue=''
+              initialvalue=''
             />
             <br />
             <br />
