@@ -47,14 +47,21 @@ export const getQusetionData = (activeItem) => {
 
 export const addQuestion = (data) => {
   return async (dispatch) => {
+    const formData = new FormData();
+
+    const imgFiles = document.getElementById('questionImage');
+    imgFiles.files[0] && formData.append('questionImage', imgFiles.files[0]);
+    formData.append('correctAnswer', data.correctAnswer);
+    formData.append('choices', data.choices);
+    formData.append('question', data.question);
+    formData.append('subjectName', data.subjectName);
+    formData.append('topicName', data.topicName);
+    formData.append('year', data.year);
+
     try {
       await fetch('http://localhost:3001/questions', {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
     } catch (error) {
       console.log(error);

@@ -34,14 +34,12 @@ const QuestionForm = (props) => {
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       subjectName: '',
-      question: '',
       correctAnswer: '',
       year: 0,
       topicName: '',
     },
     inputValidities: {
       subjectName: false,
-      question: false,
       correctAnswer: false,
       year: false,
       topicName: false,
@@ -74,10 +72,16 @@ const QuestionForm = (props) => {
       return;
     }
     event.preventDefault();
-    const submitData = { ...formState.inputValues, choices: choices };
 
+    const question = document.getElementById('question').value;
+    const submitData = {
+      ...formState.inputValues,
+      choices: choices,
+      question: question.trim(),
+    };
+    console.log(submitData);
     try {
-      await dispatch(addQuestion(submitData));
+      dispatch(addQuestion(submitData));
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +91,7 @@ const QuestionForm = (props) => {
     <div>
       <div>
         <Segment>
-          <form className='ui form' autocomplete='off'>
+          <form className='ui form' id='formElem'>
             <Input
               id='subjectName'
               type='text'
@@ -97,6 +101,7 @@ const QuestionForm = (props) => {
               onInputChange={inputChangeHandler}
               initialvalue=''
             />
+
             <br />
             <br />
             <Input
@@ -110,22 +115,15 @@ const QuestionForm = (props) => {
             />
             <br />
             <br />
-            <Input
-              id='question'
-              type='text'
-              label='Question'
-              required
-              errortext='Question Name is Required'
-              onInputChange={inputChangeHandler}
-              initialvalue=''
-            />
+
+            <label>Question</label>
+            <textarea name='Question' id='question' />
             <br />
             <br />
             <Input
               id='correctAnswer'
               type='text'
               label='The Correct Answer'
-              required
               errortext='corrent answer is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
@@ -141,6 +139,10 @@ const QuestionForm = (props) => {
               onInputChange={inputChangeHandler}
               initialvalue=''
             />
+            <br />
+            <br />
+            <label>Upload Image for the question if any</label>
+            <input name='questionImage' id='questionImage' type='file' />
             <br />
             <br />
             {choices && (

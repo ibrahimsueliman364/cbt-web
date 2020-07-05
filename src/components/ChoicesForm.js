@@ -42,7 +42,7 @@ const ChoiceForm = (props) => {
       choice4: true,
       choice5: true,
     },
-    formIsValid: false,
+    formIsValid: true,
   });
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
@@ -66,7 +66,7 @@ const ChoiceForm = (props) => {
     const choices = [];
     for (const val in formState.inputValues) {
       if (formState.inputValues[val]) {
-        choices.push(formState.inputValues[val]);
+        choices.push(formState.inputValues[val].trim());
       }
     }
 
@@ -77,11 +77,12 @@ const ChoiceForm = (props) => {
     <div>
       <div>
         <Segment>
-          <form className='ui form' autocomplete='off'>
+          <form className='ui form'>
             <Input
               id='choice1'
+              style={{ width: 100 }}
               type='text'
-              label='Choice 1'
+              label='Choice A '
               errortext='choice 1 is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
@@ -90,8 +91,9 @@ const ChoiceForm = (props) => {
             <br />
             <Input
               id='choice2'
+              style={{ width: 100 }}
               type='text'
-              label='Choice 2'
+              label='Choice B '
               errortext='choice2 is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
@@ -100,8 +102,9 @@ const ChoiceForm = (props) => {
             <br />
             <Input
               id='choice3'
+              style={{ width: 100 }}
               type='text'
-              label='Choice 3'
+              label='Choice C '
               errortext='choice 3 Name is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
@@ -110,8 +113,9 @@ const ChoiceForm = (props) => {
             <br />
             <Input
               id='choice4'
+              style={{ width: 100 }}
               type='text'
-              label='Choice 4'
+              label='Choice D '
               errortext='choice 4 is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
@@ -120,8 +124,9 @@ const ChoiceForm = (props) => {
             <br />
             <Input
               id='choice5'
+              style={{ width: 100 }}
               type='text'
-              label='Choice 5'
+              label='Choice E '
               errortext='choice5 is Required'
               onInputChange={inputChangeHandler}
               initialvalue=''
@@ -131,7 +136,7 @@ const ChoiceForm = (props) => {
             {!props.choiceFlag && (
               <input
                 type='submit'
-                value='Submit'
+                value='Continue'
                 className='ui button'
                 onClick={handleSubmit}
               />
