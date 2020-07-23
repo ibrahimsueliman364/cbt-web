@@ -51,12 +51,35 @@ export const addQuestion = (data) => {
 
     const imgFiles = document.getElementById('questionImage');
     imgFiles.files[0] && formData.append('questionImage', imgFiles.files[0]);
-    formData.append('correctAnswer', data.correctAnswer);
-    formData.append('choices', data.choices);
-    formData.append('question', data.question);
-    formData.append('subjectName', data.subjectName);
-    formData.append('topicName', data.topicName);
+    formData.append('subject', data.subjectName);
+    formData.append('topic', data.topicName);
+    formData.append('instruction', data.question);
     formData.append('year', data.year);
+    formData.append(
+      'questions',
+      JSON.stringify([
+        {
+          question:
+            'The structure labelled I is formed as a result of the fusion of',
+          choices: [
+            'A. two pairs of nuclei',
+            'B. several pairs of nuclei',
+            'C. a pair of nuclei',
+          ],
+          correctAnswer: 'A. two pairs of nuclei',
+        },
+        {
+          question: 'The special name of the part labelled II is',
+          choices: [
+            'A. gametangium',
+            'B. hypha',
+            'C. suspensor',
+            'D.zygospore',
+          ],
+          correctAnswer: 'C. suspensor',
+        },
+      ])
+    );
 
     try {
       await fetch('http://localhost:3001/questions', {
@@ -68,3 +91,27 @@ export const addQuestion = (data) => {
     }
   };
 };
+
+// export const addQuestion = (data) => {
+//   return async (dispatch) => {
+//     const formData = new FormData();
+
+//     const imgFiles = document.getElementById('questionImage');
+//     imgFiles.files[0] && formData.append('questionImage', imgFiles.files[0]);
+//     formData.append('correctAnswer', data.correctAnswer);
+//     formData.append('choices', data.choices);
+//     formData.append('question', data.question);
+//     formData.append('subjectName', data.subjectName);
+//     formData.append('topicName', data.topicName);
+//     formData.append('year', data.year);
+
+//     try {
+//       await fetch('http://localhost:3001/questions', {
+//         method: 'POST',
+//         body: formData,
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };

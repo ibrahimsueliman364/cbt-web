@@ -65,6 +65,7 @@ const ChoiceForm = (props) => {
     event.preventDefault();
     const choices = [];
     for (const val in formState.inputValues) {
+      //check to see if inputValues is not null
       if (formState.inputValues[val]) {
         choices.push(formState.inputValues[val].trim());
       }

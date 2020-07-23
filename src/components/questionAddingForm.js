@@ -77,7 +77,7 @@ const QuestionForm = (props) => {
     const submitData = {
       ...formState.inputValues,
       choices: choices,
-      question: question.trim(),
+      question: question,
     };
     console.log(submitData);
     try {
